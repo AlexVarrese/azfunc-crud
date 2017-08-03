@@ -1,0 +1,32 @@
+{
+  "disabled": false,
+  "bindings": [
+    {
+      "authLevel": "function",
+      "name": "req",
+      "type": "httpTrigger",
+      "direction": "in"
+    },
+    {
+      "name": "$return",
+      "type": "http",
+      "direction": "out"
+    },
+    {
+      "type": "table",
+      "name": "inputTable",
+      "tableName": "Employees",
+      "take": 50,
+      "connection": "azuresuperpowers_STORAGE",
+      "direction": "in",
+      "partitionKey": "Customer"
+    },
+    {
+      "type": "table",
+      "name": "outputTable",
+      "tableName": "Employees",
+      "connection": "azuresuperpowers_STORAGE",
+      "direction": "out"
+    }
+  ]
+}
