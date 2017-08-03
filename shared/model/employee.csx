@@ -22,11 +22,11 @@ public class Employee : TableEntity
     public string ReportsTo { get; set; }
     public string PhotoPath { get; set; }
 
-    public static async Task<Func<HttpRequestMessage,Employee>> Project
+    public static Func<dynamic,Employee> Project
     {
         get{
-            return req => {
-                dynamic data = await req.Content.ReadAsAsync<object>();
+            return data => {
+                // dynamic data = await req.Content.ReadAsAsync<object>();
                 return new Employee{
                     PartitionKey = "Employee",
                     RowKey = data?.RowKey,

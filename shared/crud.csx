@@ -9,7 +9,7 @@ public static async Task<HttpResponseMessage> Crud<T>(
     CloudTable outputTable, 
     TraceWriter log,
     string partitionKey,
-    Task<Func<HttpRequestMessage,T>> project)
+    Func<dynamic,T> project)
 {
     //GetByKey
     string key = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "rowKey", true) == 0).Value;
@@ -32,7 +32,8 @@ public static async Task<HttpResponseMessage> Crud<T>(
         await outputTable.ExecuteAsync(operation);
         return req.CreateResponse(HttpStatusCode.NoContent);
     }
-    var entity = await project(req); 
+    var data = await req.Content.ReadAsAsync<object>();
+    var entity = project(data); 
     //PostNew
     if(entity.RowKey == "0")
     {

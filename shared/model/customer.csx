@@ -14,11 +14,11 @@ public class Customer : TableEntity
     public string PostalCode { get; set; }
     public string Region { get; set; }
     
-    public static async Task<Func<HttpRequestMessage,Customer>> Project
+    public static Func<dynamic,Customer> Project
     {
         get{
-            return req => {
-                dynamic data = await req.Content.ReadAsAsync<object>();
+            return data => {
+                // dynamic data = await req.Content.ReadAsAsync<object>();
                 return new Customer{
                     PartitionKey = "Customer",
                     RowKey = data?.RowKey,
