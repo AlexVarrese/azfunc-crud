@@ -1,3 +1,6 @@
+#r "Microsoft.WindowsAzure.Storage"
+using Microsoft.WindowsAzure.Storage.Table;
+
 public class Customer : TableEntity
 {
     public string CompanyName { get; set; }
@@ -26,7 +29,7 @@ public class Customer : TableEntity
             Fax = data?.Fax,
             Phone = data?.Phone,
             PostalCode = data?.PostalCode,
-            Region = data?.Region
+            Region = data?.Region,
             ETag = "*"
         };
     }

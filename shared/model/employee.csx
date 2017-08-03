@@ -1,3 +1,6 @@
+#r "Microsoft.WindowsAzure.Storage"
+using Microsoft.WindowsAzure.Storage.Table;
+
 public class Employee : TableEntity
 {
     public string EmployeeID { get; set; }
