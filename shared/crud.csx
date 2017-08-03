@@ -3,13 +3,13 @@
 using System.Net;
 using Microsoft.WindowsAzure.Storage.Table;
 
-public static async Task<HttpResponseMessage> Crud<T>(
+public static async Task<HttpResponseMessage> Crud<Microsoft.WindowsAzure.Storage.Table.ITableEntity>(
     HttpRequestMessage req, 
-    IQueryable<Customer> inputTable, 
+    IQueryable<Microsoft.WindowsAzure.Storage.Table.ITableEntity> inputTable, 
     CloudTable outputTable, 
     TraceWriter log,
     string partitionKey,
-    Func<dynamic,T> project)
+    Func<dynamic,Microsoft.WindowsAzure.Storage.Table.ITableEntity> project)
 {
     //GetByKey
     string key = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Compare(q.Key, "rowKey", true) == 0).Value;
