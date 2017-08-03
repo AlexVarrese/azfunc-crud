@@ -32,24 +32,27 @@ public static async Task<HttpResponseMessage> Crud(
         await outputTable.ExecuteAsync(operation);
         return req.CreateResponse(HttpStatusCode.NoContent);
     }
-    var data = await req.Content.ReadAsAsync<object>();
-    var entity = project(data); 
-    //PostNew
-    if(entity.RowKey == "0")
-    {
-        var newKey = Guid.NewGuid().ToString();
-        entity.RowKey = newKey;
-        var operation = TableOperation.Insert(entity);
-        await outputTable.ExecuteAsync(operation);
-        return req.CreateResponse(HttpStatusCode.OK, entity,"application/json");
-    }
-    //PostUpdate
-    else{
-        var operation = TableOperation.Replace(entity);
-        await outputTable.ExecuteAsync(operation);
-        return req.CreateResponse(HttpStatusCode.OK, entity,"application/json"); 
-    }
- 
+
+    if(req.Method == HttpMethod.Post){    
+        var data = await req.Content.ReadAsAsync<object>();
+        var entity = project(data); 
+
+        //PostNew
+        if(entity.RowKey == "0")
+        {
+            var newKey = Guid.NewGuid().ToString();
+            entity.RowKey = newKey;
+            var operation = TableOperation.Insert(entity);
+            await outputTable.ExecuteAsync(operation);
+            return req.CreateResponse(HttpStatusCode.OK, entity,"application/json");
+        }
+        //PostUpdate
+        else{
+            var operation = TableOperation.Replace(entity);
+            await outputTable.ExecuteAsync(operation);
+            return req.CreateResponse(HttpStatusCode.OK, entity,"application/json"); 
+        }
+    } 
 }
 
 

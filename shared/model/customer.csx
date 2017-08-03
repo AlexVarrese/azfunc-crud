@@ -14,28 +14,27 @@ public class Customer : TableEntity
     public string PostalCode { get; set; }
     public string Region { get; set; }
     
-    public static Func<dynamic,Customer> Project
-    {
-        get{
-            return data => {
-                // dynamic data = await req.Content.ReadAsAsync<object>();
-                return new Customer{
-                    PartitionKey = "Customer",
-                    RowKey = data?.RowKey,
-                    CompanyName = data?.CompanyName,
-                    Address = data?.Address,
-                    City = data?.City,
-                    ContactName = data?.ContactName,
-                    ContactTitle = data?.ContactTitle,
-                    Country = data?.Country,
-                    Fax = data?.Fax,
-                    Phone = data?.Phone,
-                    PostalCode = data?.PostalCode,
-                    Region = data?.Region,
-                    ETag = "*"
-                };
+public static Func<dynamic,Customer> Project
+{
+    get{
+        return data => {
+            return new Customer{
+                PartitionKey = "Customer",
+                RowKey = data?.RowKey,
+                CompanyName = data?.CompanyName,
+                Address = data?.Address,
+                City = data?.City,
+                ContactName = data?.ContactName,
+                ContactTitle = data?.ContactTitle,
+                Country = data?.Country,
+                Fax = data?.Fax,
+                Phone = data?.Phone,
+                PostalCode = data?.PostalCode,
+                Region = data?.Region,
+                ETag = "*"
             };
-        }
+        };
     }
+}
 }
 
