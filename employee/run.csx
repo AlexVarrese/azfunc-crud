@@ -6,5 +6,5 @@ using Microsoft.WindowsAzure.Storage.Table;
 
 public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, IQueryable<Employee> inputTable, CloudTable outputTable, TraceWriter log)
 {
-    return await Crud<Employee>(req, inputTable, outputTable, log, "Employee", Employee.Project);
+    return await Crud(req, inputTable, outputTable, log, "Employee", Employee.Project);
 }

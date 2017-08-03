@@ -3,7 +3,7 @@
 using System.Net;
 using Microsoft.WindowsAzure.Storage.Table;
 
-public static async Task<HttpResponseMessage> Crud<Microsoft.WindowsAzure.Storage.Table.ITableEntity>(
+public static async Task<HttpResponseMessage> Crud(
     HttpRequestMessage req, 
     IQueryable<Microsoft.WindowsAzure.Storage.Table.ITableEntity> inputTable, 
     CloudTable outputTable, 
