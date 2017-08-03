@@ -19,32 +19,36 @@ public class Employee : TableEntity
     public string ReportsTo { get; set; }
     public string PhotoPath { get; set; }
 
-    public static async Task<Employee> Project(HttpRequestMessage req)
+    public static async Task<Func<HttpRequestMessage,Employee>> Project
     {
-        dynamic data = await req.Content.ReadAsAsync<object>();
-        return new Employee{
-            PartitionKey = "Customer",
-            RowKey = data?.RowKey,
-            EmployeeID = data?.EmployeeID,
-            LastName = data?.LastName,
-            FirstName = data?.FirstName,
-            Title = data?.Title,
-            TitleOfCourtesy = data?.TitleOfCourtesy,
-            BirthDate = data?.BirthDate,
-            HireDate = data?.HireDate,
-            Address = data?.Address,
-            City = data?.City,
-            Region = data?.Region,
-            PostalCode = data?.PostalCode,
-            Country = data?.Country,
-            HomePhone = data?.HomePhone,
-            Extension = data?.Extension,
-            Photo = data?.Photo,
-            Notes = data?.Notes,
-            ReportsTo = data?.ReportsTo,
-            PhotoPath = data?.PhotoPath,
-            ETag = "*"
-        };
+        get{
+            return req => {
+                dynamic data = await req.Content.ReadAsAsync<object>();
+                return new Employee{
+                    PartitionKey = "Customer",
+                    RowKey = data?.RowKey,
+                    EmployeeID = data?.EmployeeID,
+                    LastName = data?.LastName,
+                    FirstName = data?.FirstName,
+                    Title = data?.Title,
+                    TitleOfCourtesy = data?.TitleOfCourtesy,
+                    BirthDate = data?.BirthDate,
+                    HireDate = data?.HireDate,
+                    Address = data?.Address,
+                    City = data?.City,
+                    Region = data?.Region,
+                    PostalCode = data?.PostalCode,
+                    Country = data?.Country,
+                    HomePhone = data?.HomePhone,
+                    Extension = data?.Extension,
+                    Photo = data?.Photo,
+                    Notes = data?.Notes,
+                    ReportsTo = data?.ReportsTo,
+                    PhotoPath = data?.PhotoPath,
+                    ETag = "*"
+                };
+            };
+        }        
     }
 }
 
