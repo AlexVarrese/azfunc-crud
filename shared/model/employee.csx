@@ -28,7 +28,7 @@ public class Employee : TableEntity
             return req => {
                 dynamic data = await req.Content.ReadAsAsync<object>();
                 return new Employee{
-                    PartitionKey = "Customer",
+                    PartitionKey = "Employee",
                     RowKey = data?.RowKey,
                     EmployeeID = data?.EmployeeID,
                     LastName = data?.LastName,

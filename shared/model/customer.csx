@@ -13,25 +13,29 @@ public class Customer : TableEntity
     public string Phone { get; set; }
     public string PostalCode { get; set; }
     public string Region { get; set; }
-
-    public static async Task<Customer> Project(HttpRequestMessage req)
+    
+    public static async Task<Func<HttpRequestMessage,Customer>> Project
     {
-        dynamic data = await req.Content.ReadAsAsync<object>();
-        return new Customer{
-            PartitionKey = "Customer",
-            RowKey = data?.RowKey,
-            CompanyName = data?.CompanyName,
-            Address = data?.Address,
-            City = data?.City,
-            ContactName = data?.ContactName,
-            ContactTitle = data?.ContactTitle,
-            Country = data?.Country,
-            Fax = data?.Fax,
-            Phone = data?.Phone,
-            PostalCode = data?.PostalCode,
-            Region = data?.Region,
-            ETag = "*"
-        };
+        get{
+            return req => {
+                dynamic data = await req.Content.ReadAsAsync<object>();
+                return new Customer{
+                    PartitionKey = "Customer",
+                    RowKey = data?.RowKey,
+                    CompanyName = data?.CompanyName,
+                    Address = data?.Address,
+                    City = data?.City,
+                    ContactName = data?.ContactName,
+                    ContactTitle = data?.ContactTitle,
+                    Country = data?.Country,
+                    Fax = data?.Fax,
+                    Phone = data?.Phone,
+                    PostalCode = data?.PostalCode,
+                    Region = data?.Region,
+                    ETag = "*"
+                };
+            };
+        }
     }
 }
 
