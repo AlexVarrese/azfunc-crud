@@ -1,34 +1,28 @@
+#load "../shared/model/customer.csx"
+
 using System;
 using System.Net;
 using ServiceStack.Redis;
 using ServiceStack.Text;
 using System.Configuration;
 
-public class Todo
-{
-    public long Id { get; set; }
-    public string Content { get; set; }
-    public int Order { get; set; }
-    public bool Done { get; set; }
-}
-
-public static Todo Run(HttpRequestMessage req, TraceWriter log)
+public static Customer Run(HttpRequestMessage req, TraceWriter log)
 {
     var cnnString  = ConfigurationManager.ConnectionStrings["MyRedis"].ConnectionString;
 
     var redisManager = new RedisManagerPool(cnnString);
     var redis = redisManager.GetClient();
 
-    var redisTodos = redis.As<Todo>();
-    var newTodo = new Todo
+    var redisTodos = redis.As<Customer>();
+    var newTodo = new Customer
     {
         Id = redisTodos.GetNextSequence(),
-        Content = "Learn Redis",
-        Order = 1,
+        CompanyName = "Learn Redis",
+        Address = "Brisbane",
     };
 
     redisTodos.Store(newTodo);
-    Todo savedTodo = redisTodos.GetById(newTodo.Id);    
+    Customer savedTodo = redisTodos.GetById(newTodo.Id);    
     "Saved Todo: {0}".Print(savedTodo.Dump());
     log.Info(savedTodo.Dump());
     return savedTodo;
