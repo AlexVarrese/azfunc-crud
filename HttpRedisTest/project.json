@@ -1,6 +1,6 @@
 {
     "frameworks": {
-        "net46": {
+        "net452": {
             "dependencies": {
                 "ServiceStack.Common": "4.5.12",
                 "ServiceStack.Interfaces": "4.5.12",
