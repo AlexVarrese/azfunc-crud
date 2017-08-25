@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using ServiceStack.Redis;
 using ServiceStack.Text;
@@ -14,7 +15,6 @@ public class Todo
 public static Todo Run(HttpRequestMessage req, TraceWriter log)
 {
     var cnnString  = ConfigurationManager.ConnectionStrings["MyRedis"].ConnectionString;
-    // var redis = ConnectionMultiplexer.Connect(connString);
 
     var redisManager = new RedisManagerPool(cnnString);
     var redis = redisManager.GetClient();
@@ -30,5 +30,6 @@ public static Todo Run(HttpRequestMessage req, TraceWriter log)
     redisTodos.Store(newTodo);
     Todo savedTodo = redisTodos.GetById(newTodo.Id);    
     "Saved Todo: {0}".Print(savedTodo.Dump());
+    log.Info(savedTodo.Dump());
     return savedTodo;
 }
