@@ -16,7 +16,7 @@ public static IList<Customer> Run(HttpRequestMessage req, TraceWriter log)
     var redisTodos = redis.As<Customer>();
     var newTodo = new Customer
     {
-        Id = redisTodos.GetNextSequence(),
+        LongId = redisTodos.GetNextSequence(),
         CompanyName = "Learn Redis",
         Address = "Brisbane",
     };
