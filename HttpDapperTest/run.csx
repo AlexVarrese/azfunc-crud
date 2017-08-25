@@ -4,12 +4,13 @@ using Dapper;
 using System.Data.SqlClient;
 using System.Configuration;
 
-public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceWriter log)
+public static IList<Customer> Run(HttpRequestMessage req, TraceWriter log)
 {
+    log.Info("test");
     var cnnString  = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
-    using(IDbConnection connection = new SqlConnection(cnnString))
+    using(var db = new SqlConnection(cnnString))
     {
-        return db.Query<Cutomer>("select * from [dbo].[Customers]").ToList();
+        var list = db.Query<Customer>("select * from [dbo].[Customers]").ToList();
+        return list;
     }
-    return req.CreateResponse(HttpStatusCode.OK, ":D");
 }
