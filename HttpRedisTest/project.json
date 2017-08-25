@@ -2,7 +2,10 @@
     "frameworks": {
         "net46": {
             "dependencies": {
-                "StackExchange.Redis": "1.2.1"
+                "ServiceStack.Common": "4.5.12",
+                "ServiceStack.Interfaces": "4.5.12",
+                "ServiceStack.Redis": "4.5.12",
+                "ServiceStack.Text": "4.5.12"
             }
         }
     }
