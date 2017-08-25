@@ -6,7 +6,7 @@ using ServiceStack.Redis;
 using ServiceStack.Text;
 using System.Configuration;
 
-public static Customer Run(HttpRequestMessage req, TraceWriter log)
+public static IList<Customer> Run(HttpRequestMessage req, TraceWriter log)
 {
     var cnnString  = ConfigurationManager.ConnectionStrings["MyRedis"].ConnectionString;
 
@@ -22,8 +22,11 @@ public static Customer Run(HttpRequestMessage req, TraceWriter log)
     };
 
     redisTodos.Store(newTodo);
-    Customer savedTodo = redisTodos.GetById(newTodo.Id);    
-    "Saved Todo: {0}".Print(savedTodo.Dump());
-    log.Info(savedTodo.Dump());
-    return savedTodo;
+    // Customer savedTodo = redisTodos.GetById(newTodo.Id);    
+    // "Saved Todo: {0}".Print(savedTodo.Dump());
+    // log.Info(savedTodo.Dump());
+
+    return redisTodos..GetAllItemsFromList();
+
+    // return savedTodo;
 }
