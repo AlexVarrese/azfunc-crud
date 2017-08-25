@@ -3,7 +3,7 @@ using Microsoft.WindowsAzure.Storage.Table;
 
 public class Customer : TableEntity
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
     public string CompanyName { get; set; }
     public string Address { get; set; }
     public string City { get; set; }
