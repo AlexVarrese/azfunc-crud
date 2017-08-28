@@ -1,2 +1,2 @@
-# Azure Functions + Storage Table - CRUD
-This is a simple implementation of CRUD using Azure Functions and Storage Tables
+# Azure Functions + Service Bus + SQL + Redis - CRUD
+This is a simple implementation of Message Architecture and CQRS using Azure Functions, Service Bus, SQL and Redis
