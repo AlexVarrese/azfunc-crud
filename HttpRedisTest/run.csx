@@ -6,27 +6,34 @@ using ServiceStack.Redis;
 using ServiceStack.Text;
 using System.Configuration;
 
-public static Customer Run(HttpRequestMessage req, TraceWriter log)
+public static dynamic Run(HttpRequestMessage req, string id, TraceWriter log)
 {
     var cnnString  = ConfigurationManager.ConnectionStrings["MyRedis"].ConnectionString;
 
     var redisManager = new RedisManagerPool(cnnString);
     var redis = redisManager.GetClient();
 
-    var redisTodos = redis.As<Customer>();
-    var newTodo = new Customer
-    {
-        Id = redisTodos.GetNextSequence(),
-        CompanyName = "Learn Redis",
-        Address = "Brisbane",
-    };
+    var redisCustomer = redis.As<Customer>();
+    if(string.IsNullOrEmpty(id)) return redisCustomer.GetAll();
 
-    redisTodos.Store(newTodo);
-    Customer savedTodo = redisTodos.GetById(newTodo.Id);    
-    "Saved Todo: {0}".Print(savedTodo.Dump());
-    log.Info(savedTodo.Dump());
+    var intId = 0;
+    if(Int32.TryParse(id,out intId)){
+        return redisCustomer.GetById(id);
+    }
 
-    // return redisTodos.GetAllItemsFromList();
+    // var newTodo = new Customer
+    // {
+    //     Id = redisCustomer.GetNextSequence(),
+    //     CompanyName = "Learn Redis",
+    //     Address = "Brisbane",
+    // };
 
-    return savedTodo;
+    // redisCustomer.Store(newTodo);
+    // Customer savedTodo = redisCustomer.GetById(newTodo.Id);    
+    // "Saved Todo: {0}".Print(savedTodo.Dump());
+    // log.Info(savedTodo.Dump());
+
+    // // return redisCustomer.GetAllItemsFromList();
+
+    throw new Exception();
 }

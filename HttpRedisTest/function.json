@@ -5,7 +5,11 @@
       "authLevel": "function",
       "name": "req",
       "type": "httpTrigger",
-      "direction": "in"
+      "direction": "in",
+      "route": "redis/{id}",
+      "methods": [
+        "get"
+      ]
     },
     {
       "name": "$return",
