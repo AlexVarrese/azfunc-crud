@@ -1,0 +1,14 @@
+{
+  "disabled": false,
+  "bindings": [
+    {
+      "name": "customer",
+      "type": "serviceBusTrigger",
+      "direction": "in",
+      "topicName": "customer",
+      "subscriptionName": "updateCustomer",
+      "connection": "azuresuperpowers_RootManageSharedAccessKey_SERVICEBUS",
+      "accessRights": "Listen"
+    }
+  ]
+}
