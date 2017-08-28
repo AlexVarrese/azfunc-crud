@@ -13,9 +13,9 @@ public static void Run(Customer customer, TraceWriter log)
         string command = "";
         if(customer.Id==0)
         {
-            command = @"INSERT INTO [dbo].[Customer] (CompanyName) values (@CompanyName)";
+            command = @"INSERT INTO [dbo].[Customers] (CompanyName) values (@CompanyName)";
         }else{
-            command = @"UPDATE [dbo].[Customer] SET CompanyName = @CompanyName WHERE Id = @Id";
+            command = @"UPDATE [dbo].[Customers] SET CompanyName = @CompanyName WHERE Id = @Id";
         }
 
         var result = db.Execute(command,customer);
