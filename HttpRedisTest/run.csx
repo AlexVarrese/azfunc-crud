@@ -14,26 +14,10 @@ public static dynamic Run(HttpRequestMessage req, string id, TraceWriter log)
     var redis = redisManager.GetClient();
 
     var redisCustomer = redis.As<Customer>();
-    if(string.IsNullOrEmpty(id)) return redisCustomer.GetAll();
 
     var intId = 0;
     if(Int32.TryParse(id,out intId)){
         return redisCustomer.GetById(id);
     }
-
-    // var newTodo = new Customer
-    // {
-    //     Id = redisCustomer.GetNextSequence(),
-    //     CompanyName = "Learn Redis",
-    //     Address = "Brisbane",
-    // };
-
-    // redisCustomer.Store(newTodo);
-    // Customer savedTodo = redisCustomer.GetById(newTodo.Id);    
-    // "Saved Todo: {0}".Print(savedTodo.Dump());
-    // log.Info(savedTodo.Dump());
-
-    // // return redisCustomer.GetAllItemsFromList();
-
-    throw new Exception();
+    return redisCustomer.GetAll();
 }
