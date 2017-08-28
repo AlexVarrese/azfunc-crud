@@ -6,7 +6,7 @@
       "type": "serviceBusTrigger",
       "direction": "in",
       "topicName": "customer",
-      "subscriptionName": "updateCustomer",
+      "subscriptionName": "cacheCustomer",
       "connection": "azuresuperpowers_RootManageSharedAccessKey_SERVICEBUS",
       "accessRights": "Listen"
     }

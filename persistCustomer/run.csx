@@ -1,17 +1,16 @@
 #load "../shared/model/customer.csx"
 
-using System;
+using System.Net;
+using Dapper;
+using System.Data.SqlClient;
 using System.Configuration;
-using System.Threading.Tasks;
-using ServiceStack.Redis;
-using ServiceStack.Text;
 
 public static void Run(Customer customer, TraceWriter log)
 {
     var cnnString  = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
     using(var db = new SqlConnection(cnnString))
     {
-        string query ="";
+        string command = "";
         if(customer.Id==0)
         {
             command = @"INSERT INTO [dbo].[Customer] (CompanyName) values (@CompanyName)";
